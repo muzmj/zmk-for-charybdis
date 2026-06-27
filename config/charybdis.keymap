@@ -137,7 +137,7 @@
 
             sensor-bindings =
                 <&scroll_vertical_encoder>,
-                // 编码器1：上下滚动,,,
+                // 编码器1：上下滚动,,,,
                 <&scroll_horizontal_encoder>;
 
             // 编码器2：左右滚动
@@ -145,12 +145,12 @@
 
         layer_1_fn_ts {
             bindings = <
-&kp GRAVE  &f1_f11          &f2_f12          &kp F3  &kp F4  &kp F5    &kp F6          &kp F7          &kp F8         &kp F9            &kp F10            &kp DELETE
-&trans     &kp PRINTSCREEN  &kp PAUSE_BREAK  &none   &none   &none     &kp INSERT      &kp HOME        &kp PAGE_UP    &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp BACKSLASH
-&trans     &none            &none            &none   &none   &none     &kp LEFT_ARROW  &kp DOWN_ARROW  &kp UP_ARROW   &kp RIGHT         &none              &none
-&trans     &none            &none            &none   &none   &none     &kp DELETE      &kp END         &kp PAGE_DOWN  &none             &none              &trans
-                                             &trans  &trans  &trans    &trans          &trans
-                                                     &trans  &trans    &trans
+&kp GRAVE  &f1_f11          &f2_f12          &kp F3  &kp F4    &kp F5    &kp F6          &kp F7          &kp F8         &kp F9            &kp F10            &kp DELETE
+&trans     &kp PRINTSCREEN  &kp PAUSE_BREAK  &none   &none     &none     &kp INSERT      &kp HOME        &kp PAGE_UP    &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp BACKSLASH
+&trans     &none            &none            &none   &none     &none     &kp LEFT_ARROW  &kp DOWN_ARROW  &kp UP_ARROW   &kp RIGHT         &none              &none
+&trans     &mkp MB4         &none            &none   &mkp MB5  &none     &kp DELETE      &kp END         &kp PAGE_DOWN  &none             &none              &trans
+                                             &trans  &trans    &trans    &trans          &trans
+                                                     &trans    &trans    &trans
             >;
         };
 
