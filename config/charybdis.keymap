@@ -82,6 +82,12 @@
         bindings = <&kp F2>, <&kp F12>;
     };
 
+    toggle_layer3: toggle_layer3 {
+        compatible = "zmk,behavior-toggle-layer";
+        label = "TOGGLE_LAYER3";
+        #binding-cells = <1>;
+    };
+
     behaviors {
     };
 
@@ -122,13 +128,22 @@
         };
     };
 
+    combos {
+        compatible = "zmk,combos";
+
+        toggle_layer3 {
+            bindings = <&toggle_layer3 3>;
+            key-positions = <10 11>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
         layer_0_main {
             bindings = <
 &gresc                      &kp N1  &kp N2  &kp N3       &kp N4        &kp N5          &kp N6                       &kp N7       &kp N8     &kp N9      &kp N0    &kp BACKSPACE
-&kp TAB                     &kp Q   &kp W   &kp E        &kp R         &kp T           &kp Y                        &kp U        &kp I      &kp O       &kp P     &kp BSLH
+&kp TAB                     &kp Q   &kp W   &kp E        &kp R         &kp T           &kp Y                        &kp U        &kp I      &kp O       &kp P     &minus_equal
 &kp LEFT_SHIFT              &kp A   &kp S   &kp D        &kp F         &kp G           &kp H                        &kp J        &kp K      &kp L       &kp SEMI  &kp SQT
 &mt LCTRL LEFT_PARENTHESIS  &kp Z   &kp X   &kp C        &kp V         &kp B           &kp N                        &kp M        &kp COMMA  &kp PERIOD  &kp FSLH  &mt RIGHT_SHIFT ENTER
                                             &lt 1 SPACE  &kp LEFT_ALT  &kp LEFT_GUI    &ralt_caps                   &lt 2 SPACE
@@ -137,7 +152,7 @@
 
             sensor-bindings =
                 <&scroll_vertical_encoder>,
-                // 编码器1：上下滚动,,,,
+                // 编码器1：上下滚动,,,,,
                 <&scroll_horizontal_encoder>;
 
             // 编码器2：左右滚动
@@ -145,12 +160,12 @@
 
         layer_1_fn_ts {
             bindings = <
-&kp GRAVE  &f1_f11          &f2_f12          &kp F3  &kp F4    &kp F5    &kp F6          &kp F7          &kp F8         &kp F9            &kp F10            &kp DELETE
-&trans     &kp PRINTSCREEN  &kp PAUSE_BREAK  &none   &none     &none     &kp INSERT      &kp HOME        &kp PAGE_UP    &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp BACKSLASH
-&trans     &none            &none            &none   &none     &none     &kp LEFT_ARROW  &kp DOWN_ARROW  &kp UP_ARROW   &kp RIGHT         &none              &none
-&trans     &mkp MB4         &none            &none   &mkp MB5  &none     &kp DELETE      &kp END         &kp PAGE_DOWN  &none             &none              &trans
-                                             &trans  &trans    &trans    &trans          &trans
-                                                     &trans    &trans    &trans
+&kp GRAVE  &f1_f11          &f2_f12          &kp F3        &kp F4           &kp F5    &kp F6          &kp F7          &kp F8         &kp F9            &kp F10            &kp DELETE
+&trans     &kp PRINTSCREEN  &kp PAUSE_BREAK  &none         &none            &none     &kp INSERT      &kp HOME        &kp PAGE_UP    &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp BACKSLASH
+&trans     &msc SCRL_LEFT   &msc SCRL_DOWN   &msc SCRL_UP  &msc SCRL_RIGHT  &none     &kp LEFT_ARROW  &kp DOWN_ARROW  &kp UP_ARROW   &kp RIGHT         &none              &none
+&trans     &mkp MB4         &none            &none         &mkp MB5         &none     &kp DELETE      &kp END         &kp PAGE_DOWN  &none             &none              &trans
+                                             &trans        &trans           &trans    &trans          &trans
+                                                           &trans           &trans    &trans
             >;
         };
 
@@ -165,14 +180,14 @@
             >;
         };
 
-        layer_3 {
+        layer_3_space {
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-                        &trans  &trans  &trans    &trans  &trans
-                                &trans  &trans    &trans
+&trans  &trans  &trans  &trans     &trans  &trans    &trans  &trans     &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans     &trans  &trans    &trans  &trans     &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans     &trans  &trans    &trans  &trans     &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans     &trans  &trans    &trans  &trans     &trans  &trans  &trans  &trans
+                        &kp SPACE  &trans  &trans    &trans  &kp SPACE
+                                   &trans  &trans    &trans
             >;
         };
 
