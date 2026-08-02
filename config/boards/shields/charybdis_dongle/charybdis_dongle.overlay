@@ -166,7 +166,7 @@ zephyr_udc0: &usbd {
 
         scroller {
             layers = <1>;
-            input-processors = <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 8>;
+            input-processors = <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 16>;
         };
     };
 };
