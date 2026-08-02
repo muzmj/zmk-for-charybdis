@@ -6,6 +6,7 @@
 #include <dt-bindings/zmk/matrix_transform.h>
 #include <physical_layouts.dtsi>
 #include <input/processors.dtsi>
+#include <dt-bindings/zmk/input_transform.h>
 
 / {
     physical_layout_0: physical_layout_0 {
@@ -150,6 +151,14 @@ zephyr_udc0: &usbd {
 };
 
 / {
+    my_scroll_scaler: my_scroll_scaler {
+        compatible = "zmk,input-processor-scaler";
+        #input-processor-cells = <2>;
+        type = <INPUT_EV_REL>;
+        codes = <INPUT_REL_WHEEL INPUT_REL_HWHEEL>;
+        track-remainders;
+    };
+
     split_inputs {
         #address-cells = <1>;
         #size-cells = <0>;
@@ -166,7 +175,7 @@ zephyr_udc0: &usbd {
 
         scroller {
             layers = <1>;
-            input-processors = <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 16>;
+            input-processors = <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>, <&zip_xy_to_scroll_mapper>, <&my_scroll_scaler 1 20>;
         };
     };
 };
