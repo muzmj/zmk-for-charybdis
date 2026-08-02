@@ -5,6 +5,7 @@
 
 #include <dt-bindings/zmk/matrix_transform.h>
 #include <physical_layouts.dtsi>
+#include <input/processors.dtsi>
 
 / {
     physical_layout_0: physical_layout_0 {
@@ -159,8 +160,13 @@ zephyr_udc0: &usbd {
         };
     };
 
-    trackball_listener {
+    trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball_split>;
+
+        scroller {
+            layers = <1>;
+            input-processors = <&zip_xy_to_scroll_mapper>;
+        };
     };
 };
