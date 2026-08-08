@@ -133,7 +133,8 @@
 
         toggle_layer3 {
             bindings = <&toggle_layer3 3>;
-            key-positions = <10 11>;
+            key-positions = <11 0>;
+            layers = <1>;
         };
     };
 
@@ -153,7 +154,7 @@
 
             sensor-bindings =
                 <&scroll_vertical_encoder>,
-                // 编码器1：上下滚动,,,,,
+                // 编码器1：上下滚动,,,,,,
                 <&scroll_horizontal_encoder>;
 
             // 编码器2：左右滚动
@@ -186,12 +187,12 @@
         layer_3_space {
             display-name = "Space";
             bindings = <
-&trans  &trans  &trans  &trans     &trans  &trans    &trans  &trans     &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans     &trans  &trans    &trans  &trans     &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans     &trans  &trans    &trans  &trans     &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans     &trans  &trans    &trans  &trans     &trans  &trans  &trans  &trans
-                        &kp SPACE  &trans  &trans    &trans  &kp SPACE
-                                   &trans  &trans    &trans
+&trans  &trans  &trans  &trans     &trans  &trans          &trans  &trans     &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans     &trans  &trans          &trans  &trans     &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans     &trans  &trans          &trans  &trans     &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans     &trans  &trans          &trans  &trans     &trans  &trans  &trans  &trans
+                        &kp SPACE  &trans  &kp CAPSLOCK    &trans  &kp SPACE
+                                   &trans  &trans          &trans
             >;
         };
 
