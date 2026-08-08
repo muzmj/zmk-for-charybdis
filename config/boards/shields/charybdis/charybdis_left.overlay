@@ -17,10 +17,12 @@
 		;
 };
 &left_encoder_1 {
-    status = "okay";
+    //status = "okay";
+    status = "disabled";
 };
 &left_encoder_2 {
-    status = "okay";
+    //status = "okay";
+    status = "disabled";
 };
 //RGB bus
 &pinctrl {
