@@ -115,7 +115,7 @@
         wakeup-sources = <&kscan0>;
     };
 
- left_encoder_1: encoder_left_1 {
+    left_encoder_1: encoder_left_1 {
         compatible = "alps,ec11";
         a-gpios = <&gpio1 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         b-gpios = <&gpio1 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
