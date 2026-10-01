@@ -1,16 +1,14 @@
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 40
 #include <dt-bindings/zmk/mouse.h>
 #include <input/processors.dtsi>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/outputs.h>
 #include <dt-bindings/zmk/pointing.h>
-#include <dt-bindings/zmk/rgb.h>
 
-
-// &msc_input_listener { input-processors = <&zip_scroll_scaler 2 1>; };
-
+#define ZMK_POINTING_DEFAULT_MOVE_VAL 1000 // 600
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 12   // 10
 
 &lt {
     tapping-term-ms = <200>;
@@ -18,10 +16,13 @@
     quick-tap-ms = <150>;
 };
 
+&mmv_input_listener { input-processors = <&zip_xy_scaler 2 1>; };
+
+&msc_input_listener { input-processors = <&zip_scroll_scaler 2 1>; };
 
 &msc {
-    acceleration-exponent = <1>;      // 0
-    time-to-max-speed-ms = <30>;       // 300
+    acceleration-exponent = <0>;      // 0
+    time-to-max-speed-ms = <0>;       // 300
     delay-ms = <0>;                   // 0
 };
 
@@ -31,18 +32,25 @@
     trigger-period-ms = <16>;
 };
 
+&mt {
+    tapping-term-ms = <250>;
+    flavor = "balanced";
+    quick-tap-ms = <150>;
+    require-prior-idle-ms = <125>;
+};
+
 / {
-    // 上下滚动编码器行为
+    // Scroll up/down encoder behavior
 
     scroll_vertical_encoder: scroll_vertical_encoder {
         compatible = "zmk,behavior-sensor-rotate";
         #sensor-binding-cells = <0>;
         bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
 
-        tap-ms = <50>;
+        tap-ms = <100>;
     };
 
-    // 左右滚动编码器行为
+    // Left/Right Scroll Encoder Behavior
 
     scroll_horizontal_encoder: scroll_horizontal_encoder {
         compatible = "zmk,behavior-sensor-rotate";
@@ -52,99 +60,107 @@
         tap-ms = <100>;
     };
 
+    minus_equal: minus_equal {
+        compatible = "zmk,behavior-tap-dance";
+        label = "MINUS_EQUAL";
+        #binding-cells = <0>;
+        bindings = <&kp MINUS>, <&kp EQUAL>;
+    };
+
+    ralt_caps: ralt_caps {
+        compatible = "zmk,behavior-tap-dance";
+        label = "RALT_CAPS";
+        #binding-cells = <0>;
+        bindings = <&kp RIGHT_ALT>, <&kp CAPSLOCK>;
+    };
+
+    f1_f11: f1_f11 {
+        compatible = "zmk,behavior-tap-dance";
+        label = "F1_F11";
+        #binding-cells = <0>;
+        bindings = <&kp F1>, <&kp F11>;
+    };
+
+    f2_f12: f2_f12 {
+        compatible = "zmk,behavior-tap-dance";
+        label = "F2_F12";
+        #binding-cells = <0>;
+        bindings = <&kp F2>, <&kp F12>;
+    };
+
+    toggle_layer3: toggle_layer3 {
+        compatible = "zmk,behavior-toggle-layer";
+        label = "TOGGLE_LAYER3";
+        #binding-cells = <1>;
+    };
+
     behaviors {
     };
 
-    macros {
-        To1_macro: To1_macro {
-            compatible = "zmk,behavior-macro";
-            label = "To1_macro";
-            #binding-cells = <0>;
-            bindings = <&rgb_ug RGB_EFF &rgb_ug RGB_COLOR_HSB(128,100,50) &to 1>;
-        };
+    combos {
+        compatible = "zmk,combos";
 
-        To1_macro_A: To1_macro_A {
-            compatible = "zmk,behavior-macro";
-            label = "To1_macro_A";
-            #binding-cells = <0>;
-            bindings = <&rgb_ug RGB_COLOR_HSB(128,100,50) &to 1>;
-        };
-
-        To0_macro: To0_macro {
-            compatible = "zmk,behavior-macro";
-            label = "To0_macro";
-            #binding-cells = <0>;
-            bindings = <&rgb_ug RGB_EFR &to 0>;
-        };
-
-        To2_macro_A: To2_macro_A {
-            compatible = "zmk,behavior-macro";
-            label = "To2_macro_A";
-            #binding-cells = <0>;
-            bindings = <&rgb_ug RGB_COLOR_HSB(250,100,50) &to 2>;
-        };
-
-        To2_macro: To2_macro {
-            compatible = "zmk,behavior-macro";
-            label = "To2_macro";
-            #binding-cells = <0>;
-            bindings = <&rgb_ug RGB_EFF &rgb_ug RGB_COLOR_HSB(250,100,50) &to 2>;
+        toggle_layer3 {
+            bindings = <&toggle_layer3 3>;
+            key-positions = <11 9>;
         };
     };
 
     keymap {
         compatible = "zmk,keymap";
 
-        layer_0 {
+        layer_0_main {
+            display-name = "Main";
             bindings = <
-&kp ESC         &kp N1  &kp N2  &kp N3        &kp N4     &kp N5      &kp N6     &kp N7     &kp N8     &kp N9            &kp N0    &kp BACKSPACE
-&kp TAB         &kp Q   &kp W   &kp E         &kp R      &kp T       &kp Y      &kp U      &kp I      &kp O             &kp P     &kp BSLH
-&kp LEFT_SHIFT  &kp A   &kp S   &kp D         &kp F      &kp G       &kp H      &kp J      &kp K      &kp L             &kp SEMI  &kp SQT
-&kp LCTRL       &kp Z   &kp X   &kp C         &kp V      &kp B       &kp N      &kp M      &kp COMMA  &kp LEFT_BRACKET  &kp FSLH  &kp MINUS
-                                &kp LEFT_ALT  &kp SPACE  &to 1       &kp LWIN   &kp SPACE
-                                              &mkp MB1   &mkp MB2    &kp ENTER
+&gresc                      &kp N1            &kp N2       &kp N3       &kp N4          &kp N5          &kp N6                       &kp N7           &kp N8          &kp N9              &kp N0                &kp BACKSPACE
+&kp TAB                     &kp Q             &kp W        &kp E        &kp R           &kp T           &kp Y                        &kp U            &kp I           &kp O               &kp P                 &minus_equal
+&kp LEFT_SHIFT              &mt LEFT_SHIFT A  &mt LCTRL S  &mt LALT D   &mt LEFT_GUI F  &kp G           &kp H                        &mt RIGHT_GUI J  &mt LEFT_ALT K  &mt LEFT_CONTROL L  &mt RIGHT_SHIFT SEMI  &kp SQT
+&mt LCTRL LEFT_PARENTHESIS  &kp Z             &kp X        &kp C        &kp V           &kp B           &kp N                        &kp M            &kp COMMA       &kp PERIOD          &kp FSLH              &mt RIGHT_SHIFT ENTER
+                                                           &lt 1 SPACE  &kp LEFT_ALT    &kp LEFT_GUI    &ralt_caps                   &lt 2 SPACE
+                                                                        &mkp MB1        &mkp MB2        &mt RCTRL RIGHT_PARENTHESIS
             >;
 
-            sensor-bindings = <&scroll_vertical_encoder>;
-                 //<&inc_dec_kp A B>;
-                //<&scroll_vertical_encoder>,
-                // 编码器1：上下滚动,,
-               // <&scroll_horizontal_encoder>;
+            sensor-bindings =
+                <&scroll_vertical_encoder>,
+                // Encoder 1: Scroll up/down
+                <&scroll_horizontal_encoder>;
 
-            // 编码器2：左右滚动
+            // Encoder 2: Scroll left/right
         };
 
-        layer_1 {
+        layer_1_fn_ts {
+            display-name = "Fn_Scroll";
             bindings = <
-&kp F1          &kp F2           &kp F3           &kp F4           &kp F5           &kp F6        &kp F7     &kp F8    &kp F9      &kp F10            &kp F11  &kp F12
-&kp CAPS        &none            &none            &none            &none            &none         &none      &none     &kp UP      &none              &none    &none
-&kp LEFT_SHIFT  &none            &none            &none            &bt BT_NXT       &bt BT_CLR    &none      &kp LEFT  &kp DOWN    &kp RIGHT          &none    &none
-&kp LCTRL       &rgb_ug RGB_BRD  &rgb_ug RGB_BRI  &rgb_ug RGB_EFF  &rgb_ug RGB_TOG  &none         &none      &none     &kp PERIOD  &kp RIGHT_BRACKET  &none    &kp EQUAL
-                                                  &kp LEFT_ALT     &kp SPACE        &to 0         &none      &none
-                                                                   &mkp MB1         &mkp MB2      &kp ENTER
-            >;
-
-        };
-
-        layer_2 {
-            bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &none     &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &none     &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-                        &trans  &trans  &trans    &trans  &trans
-                                &trans  &trans    &trans
+&kp GRAVE  &f1_f11          &f2_f12          &kp F3        &kp F4           &kp F5    &kp F6          &kp F7          &kp F8         &kp F9            &kp F10            &kp DELETE
+&trans     &kp PRINTSCREEN  &kp PAUSE_BREAK  &none         &none            &none     &kp INSERT      &kp HOME        &kp PAGE_UP    &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp BACKSLASH
+&trans     &msc SCRL_LEFT   &msc SCRL_DOWN   &msc SCRL_UP  &msc SCRL_RIGHT  &none     &kp LEFT_ARROW  &kp DOWN_ARROW  &kp UP_ARROW   &kp RIGHT         &none              &none
+&trans     &mkp MB4         &none            &none         &mkp MB5         &none     &kp DELETE      &kp END         &kp PAGE_DOWN  &none             &none              &trans
+                                             &trans        &trans           &trans    &trans          &trans
+                                                           &trans           &trans    &trans
             >;
         };
 
-        layer_3 {
+        layer_2_bt_vol {
+            display-name = "BT_Vol";
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-                        &trans  &trans  &trans    &trans  &trans
-                                &trans  &trans    &trans
+&out OUT_TOG  &bt BT_SEL 0   &bt BT_SEL 1    &bt BT_SEL 2   &bt BT_SEL 3   &bt BT_SEL 4     &none              &none                  &none  &none  &none  &none
+&none         &bt BT_DISC 0  &bt BT_DISC 1   &bt BT_DISC 2  &bt BT_DISC 3  &bt BT_DISC 4    &kp C_VOLUME_UP    &kp C_BRIGHTNESS_INC   &none  &none  &none  &none
+&none         &bt BT_CLR     &bt BT_CLR_ALL  &none          &none          &none            &kp C_VOLUME_DOWN  &kp C_BRIGHTNESS_DEC   &none  &none  &none  &none
+&none         &none          &none           &none          &none          &none            &kp C_MUTE         &kp C_BRIGHTNESS_AUTO  &none  &none  &none  &studio_unlock
+                                             &none          &none          &none            &none              &none
+                                                            &none          &none            &none
+            >;
+        };
+
+        layer_3_space {
+            display-name = "Space";
+            bindings = <
+&trans  &trans  &trans  &trans     &trans  &trans          &trans  &trans     &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans     &trans  &trans          &trans  &trans     &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans     &trans  &trans          &trans  &trans     &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans     &trans  &trans          &trans  &trans     &trans  &trans  &trans  &trans
+                        &kp SPACE  &trans  &kp CAPSLOCK    &trans  &kp SPACE
+                                   &trans  &trans          &trans
             >;
         };
 
@@ -224,58 +240,5 @@
                                 &trans  &trans    &trans
             >;
         };
-
-        /* layer_2 {
-            bindings = <
-&none  &none   &none    &none   &none         &none         &kp N1         &none         &none     &none  &none   &to 0
-&none  &none   &none    &none   &none         &none         &none         &none          &rgb_ug RGB_BRD &rgb_ug RGB_BRI  &rgb_ug RGB_EFF   &rgb_ug RGB_TOG
-&none  &none   &none    &none   &none         &none         &none         &mkp LCLK     &mkp RCLK  &none  &none   &none
-&none  &none   &none    &none   &bt BT_NXT  &bt BT_CLR    &none         &none         &none     &none  &none   &none
-                                   &none         &none         &none         &none         &none
-                                                 &none         &none         &none
-            >;
-       
-            
-        };
-
-       Mouse {
-            bindings = <
-&none        &none         &none         &none         &none      &none         &none       &none      &none         &none         &none         &none
-&none        &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 3  &none      &bt BT_CLR    &bt BT_CLR  &none      &bt BT_SEL 2  &bt BT_SEL 1  &bt BT_SEL 0  &none
-&none        &trans        &trans        &mkp MCLK     &trans     &none         &none       &trans     &mkp MCLK     &trans        &trans        &none
-&bootloader  &trans        &mkp RCLK     &mo 4         &mkp LCLK  &mo 5         &mo 5       &mkp LCLK  &mo 4         &mkp RCLK     &trans        &bootloader
-                                         &mo 5         &mkp LCLK  &mkp RCLK     &mkp RCLK   &mkp LCLK
-                                                       &none      &trans        &trans
-            >;
-
-            
-        };
-
-        layer_4 {
-            bindings = <
-&trans  &trans  &trans     &trans     &trans     &trans       &trans     &trans     &trans     &trans     &trans  &trans
-&trans  &trans  &trans     &trans     &trans     &trans       &trans     &trans     &trans     &trans     &trans  &trans
-&trans  &trans  &trans     &mkp MCLK  &trans     &trans       &trans     &trans     &mkp MCLK  &trans     &trans  &trans
-&trans  &trans  &mkp RCLK  &trans     &mkp LCLK  &trans       &trans     &mkp LCLK  &trans     &mkp RCLK  &trans  &trans
-                           &trans     &mkp LCLK  &mkp RCLK    &mkp RCLK  &mkp LCLK
-                                      &trans     &trans       &trans
-            >;
-                
-                
-               
-        };
-
-        layer_5 {
-            bindings = <
-&trans  &trans  &trans     &trans     &trans     &trans       &trans     &trans     &trans     &trans     &trans  &trans
-&trans  &trans  &trans     &trans     &trans     &trans       &trans     &trans     &trans     &trans     &trans  &trans
-&trans  &trans  &trans     &mkp MCLK  &trans     &trans       &trans     &trans     &mkp MCLK  &trans     &trans  &trans
-&trans  &trans  &mkp RCLK  &trans     &mkp LCLK  &trans       &trans     &mkp LCLK  &trans     &mkp RCLK  &trans  &trans
-                           &trans     &mkp LCLK  &mkp RCLK    &mkp RCLK  &mkp LCLK
-                                      &trans     &trans       &trans
-            >;
-                
-                
-        };*/
     };
 };
