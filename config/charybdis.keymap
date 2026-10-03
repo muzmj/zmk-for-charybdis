@@ -128,7 +128,7 @@
             // Encoder 2: Scroll left/right
         };
 
-        layer_1_fn_ts {
+        layer_1_fn_scroll {
             display-name = "Fn_Scroll";
             bindings = <
 &kp GRAVE  &f1_f11          &f2_f12          &kp F3        &kp F4           &kp F5    &kp F6          &kp F7          &kp F8         &kp F9            &kp F10            &kp DELETE
