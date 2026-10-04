@@ -34,7 +34,7 @@
 
 &mt {
     tapping-term-ms = <250>;
-    flavor = "balanced";
+    flavor = "tap-preferred";
     quick-tap-ms = <150>;
     require-prior-idle-ms = <125>;
 };
@@ -122,7 +122,7 @@
 
             sensor-bindings =
                 <&scroll_vertical_encoder>,
-                // Encoder 1: Scroll up/down
+                // Encoder 1: Scroll up/down,
                 <&scroll_horizontal_encoder>;
 
             // Encoder 2: Scroll left/right
