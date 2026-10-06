@@ -40,25 +40,6 @@
 };
 
 / {
-    // Scroll up/down encoder behavior
-
-    scroll_vertical_encoder: scroll_vertical_encoder {
-        compatible = "zmk,behavior-sensor-rotate";
-        #sensor-binding-cells = <0>;
-        bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
-
-        tap-ms = <100>;
-    };
-
-    // Left/Right Scroll Encoder Behavior
-
-    scroll_horizontal_encoder: scroll_horizontal_encoder {
-        compatible = "zmk,behavior-sensor-rotate";
-        #sensor-binding-cells = <0>;
-        bindings = <&msc SCRL_LEFT>, <&msc SCRL_RIGHT>;
-
-        tap-ms = <100>;
-    };
 
     minus_equal: minus_equal {
         compatible = "zmk,behavior-tap-dance";
@@ -120,12 +101,6 @@
                                                                         &mkp MB1        &mkp MB2        &mt RCTRL RIGHT_PARENTHESIS
             >;
 
-            sensor-bindings =
-                <&scroll_vertical_encoder>,
-                // Encoder 1: Scroll up/down,,,,
-                <&scroll_horizontal_encoder>;
-
-            // Encoder 2: Scroll left/right
         };
 
         layer_1_fn_scroll {

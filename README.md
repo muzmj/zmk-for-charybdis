@@ -2,7 +2,7 @@
 
 Charybdis Mk2 4x6 split keyboard용 ZMK firmware 설정입니다.
 
-현재 `withDongle` 구성은 **좌/우 키보드 + BLE Central 동글** 구조로 동작하며, 우측 키보드에는 PMW3610 트랙볼과 encoder가 포함되어 있습니다.
+현재 `withDongle_v2` 구성은 **좌/우 키보드 + BLE Central 동글** 구조로 동작하며, 우측 키보드에는 PMW3610 트랙볼이 포함되어 있습니다.
 
 ## 주요 구성
 
@@ -12,16 +12,10 @@ Charybdis Mk2 4x6 split keyboard용 ZMK firmware 설정입니다.
 - **Settings Reset** — ZMK 설정 초기화용
 - ZMK Studio 지원
 - Layer 1 트랙볼 스크롤
-- Home Row Mods / Encoder 지원
+- Home Row Mods 지원
 - PMW3610용 `zmk-pmw3610-driver` 사용
 
 현재 `build.yaml`에는 위 구성에 필요한 **4개 firmware 대상**이 포함되어 있습니다.
-
-## RGB LED
-
-소스에는 ZMK RGB / WS2812 관련 설정이 포함되어 있지만, **현재 실제 키보드 하드웨어에는 RGB LED가 장착되어 있지 않습니다.**
-
-따라서 RGB 관련 설정은 소스에 남아 있지만 실제 LED가 연결되어 있다고 가정하면 안 됩니다. 동글에서는 RGB 기능을 비활성화합니다.
 
 ## 상세 설정 매뉴얼
 
