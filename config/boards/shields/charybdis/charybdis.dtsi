@@ -105,8 +105,9 @@
 	        , <&gpio1 6 GPIO_ACTIVE_HIGH>
             ;
     };
+};
 
-&physical_layout_0{
+&physical_layout_0 {
 
 	transform = <&default_transform>;
 	kscan = <&kscan0>;
