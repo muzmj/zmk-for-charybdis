@@ -40,7 +40,6 @@
 };
 
 / {
-
     minus_equal: minus_equal {
         compatible = "zmk,behavior-tap-dance";
         label = "MINUS_EQUAL";
@@ -100,7 +99,6 @@
                                                            &lt 1 SPACE  &kp LEFT_ALT    &kp LEFT_GUI    &ralt_caps                   &lt 2 SPACE
                                                                         &mkp MB1        &mkp MB2        &mt RCTRL RIGHT_PARENTHESIS
             >;
-
         };
 
         layer_1_fn_scroll {
@@ -130,10 +128,10 @@
         layer_3_space {
             display-name = "Space";
             bindings = <
-&trans  &trans  &trans  &trans     &trans  &trans          &trans  &trans     &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans     &trans  &trans          &trans  &trans     &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans     &trans  &trans          &trans  &trans     &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans     &trans  &trans          &trans  &trans     &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans     &trans  &trans          &trans  &trans     &trans  &trans  &trans         &trans
+&trans  &trans  &trans  &trans     &trans  &trans          &trans  &trans     &trans  &trans  &trans         &trans
+&trans  &kp A   &kp S   &kp D      &kp F   &trans          &trans  &kp J      &kp K   &kp L   &kp SEMICOLON  &trans
+&trans  &trans  &trans  &trans     &trans  &trans          &trans  &trans     &trans  &trans  &trans         &trans
                         &kp SPACE  &trans  &kp CAPSLOCK    &trans  &kp SPACE
                                    &trans  &trans          &trans
             >;
