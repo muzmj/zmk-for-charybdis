@@ -33,10 +33,10 @@
 };
 
 &mt {
-    tapping-term-ms = <160>;
-    flavor = "tap-preferred";
+    tapping-term-ms = <200>;
+    flavor = "balanced";
     quick-tap-ms = <200>;
-    require-prior-idle-ms = <0>;
+    require-prior-idle-ms = <150>;
 };
 
 / {
