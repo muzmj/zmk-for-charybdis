@@ -1,44 +1,30 @@
-# Charybdis Mk2 (4x6) / ZMK
+# SuperMini nRF52840 ASD Test
 
-Charybdis Mk2 4x6 split keyboard용 ZMK firmware 설정입니다.
+Minimal standalone ZMK keyboard firmware for a SuperMini nRF52840 board recognized by its UF2 bootloader as nice!nano.
 
-현재 `withDongle_v2` 구성은 **좌/우 키보드 + BLE Central 동글** 구조로 동작하며, 우측 키보드에는 PMW3610 트랙볼이 포함되어 있습니다.
+## Keys and wiring
 
-## 주요 구성
-
-- **Left** — Charybdis 좌측 키보드
-- **Right** — Charybdis 우측 키보드 + PMW3610 트랙볼
-- **Dongle** — BLE Central + OLED
-- **Settings Reset** — ZMK 설정 초기화용
-- ZMK Studio 지원
-- Layer 1 트랙볼 스크롤
-- Home Row Mods 지원
-- PMW3610용 `zmk-pmw3610-driver` 사용
-
-현재 `build.yaml`에는 위 구성에 필요한 **4개 firmware 대상**이 포함되어 있습니다.
-
-## 상세 설정 매뉴얼
-
-하드웨어 구성, 빌드 대상, PMW3610 트랙볼 설정, 커서/스크롤 속도, Layer 1 스크롤, HRM, Deep Sleep, OLED/BLE 동글 설정 및 upstream 업데이트 후 복구 시 확인할 항목은 아래 문서에 정리되어 있습니다.
-
-**[설정 및 유지보수 매뉴얼](docs/CONFIGURATION.md)**
-
-## 기본 빌드 구성
-
-`build.yaml`:
-
-| 대상 | 역할 |
+| Key | GPIO |
 |---|---|
-| `charybdis_dongle dongle_display` | BLE Central + OLED |
-| `charybdis_left` | 좌측 키보드 |
-| `charybdis_right` | 우측 키보드 + 트랙볼 |
-| `settings_reset` | 설정 초기화 |
+| A | P0.02 |
+| S | P0.29 |
+| D | P0.09 |
+| Common row | P0.31 |
 
-자세한 빌드/플래싱 및 설정 변경 방법은 **[설정 및 유지보수 매뉴얼](docs/CONFIGURATION.md)**을 참고하세요.
+Each switch connects between the common row (P0.31) and its own column pin. Do not connect switch contacts directly to 3.3 V or GND.
 
-## 참고
+## Direct PC connection
 
-- [ZMK Pointing Devices](https://zmk.dev/docs/hardware-integration/pointing)
-- [ZMK Input Processors](https://zmk.dev/docs/keymaps/input-processors)
-- [ZMK Scaler](https://zmk.dev/docs/keymaps/input-processors/scaler)
-- [ZMK Mouse/Pointing Behavior](https://zmk.dev/docs/keymaps/behaviors/mouse-emulation)
+This is a single, standalone keyboard. Connect it to a PC using USB, or pair it directly with the PC over Bluetooth; no separate dongle or split-keyboard firmware is required. In Bluetooth HID, the PC is the Bluetooth Central and the keyboard is the Peripheral. ZMK's split Central role is not needed for this single-board setup.
+
+## Build
+
+GitHub Actions builds the `supermini_test` target. Download the artifact from the successful workflow run and flash the included UF2 through the board's UF2 bootloader.
+
+Flashing replaces the firmware currently installed on the board. This branch intentionally contains only the ASD test configuration; the other branches are unchanged.
+
+## Current scope
+
+- Three-key A/S/D GPIO test
+- USB and direct Bluetooth HID support
+- No Charybdis left/right split, dongle, display, or trackball configuration
