@@ -33,14 +33,13 @@
 };
 
 &mt {
-    tapping-term-ms = <160>;
-    flavor = "tap-preferred";
+    tapping-term-ms = <200>;
+    flavor = "balanced";
     quick-tap-ms = <200>;
-    require-prior-idle-ms = <0>;
+    require-prior-idle-ms = <150>;
 };
 
 / {
-
     minus_equal: minus_equal {
         compatible = "zmk,behavior-tap-dance";
         label = "MINUS_EQUAL";
@@ -93,14 +92,13 @@
         layer_0_main {
             display-name = "Main";
             bindings = <
-&gresc                      &kp N1            &kp N2       &kp N3       &kp N4          &kp N5          &kp N6                       &kp N7           &kp N8          &kp N9              &kp N0                &kp BACKSPACE
-&kp TAB                     &kp Q             &kp W        &kp E        &kp R           &kp T           &kp Y                        &kp U            &kp I           &kp O               &kp P                 &minus_equal
-&kp LEFT_SHIFT              &mt LEFT_SHIFT A  &mt LCTRL S  &mt LALT D   &mt LEFT_GUI F  &kp G           &kp H                        &mt RIGHT_GUI J  &mt LEFT_ALT K  &mt LEFT_CONTROL L  &mt RIGHT_SHIFT SEMI  &kp SQT
-&mt LCTRL LEFT_PARENTHESIS  &kp Z             &kp X        &kp C        &kp V           &kp B           &kp N                        &kp M            &kp COMMA       &kp PERIOD          &kp FSLH              &mt RIGHT_SHIFT ENTER
-                                                           &lt 1 SPACE  &kp LEFT_ALT    &kp LEFT_GUI    &ralt_caps                   &lt 2 SPACE
-                                                                        &mkp MB1        &mkp MB2        &mt RCTRL RIGHT_PARENTHESIS
+&gresc                      &kp N1      &kp N2          &kp N3              &kp N4            &kp N5          &kp N6                       &kp N7             &kp N8              &kp N9          &kp N0             &kp BACKSPACE
+&kp TAB                     &kp Q       &kp W           &kp E               &kp R             &kp T           &kp Y                        &kp U              &kp I               &kp O           &kp P              &minus_equal
+&kp LEFT_SHIFT              &mt LGUI A  &mt LEFT_ALT S  &mt LEFT_CONTROL D  &mt LEFT_SHIFT F  &kp G           &kp H                        &mt RIGHT_SHIFT J  &mt LEFT_CONTROL K  &mt LEFT_ALT L  &mt LEFT_GUI SEMI  &kp SQT
+&mt LCTRL LEFT_PARENTHESIS  &kp Z       &kp X           &kp C               &kp V             &kp B           &kp N                        &kp M              &kp COMMA           &kp PERIOD      &kp FSLH           &mt RIGHT_SHIFT ENTER
+                                                        &lt 1 SPACE         &kp LEFT_ALT      &kp LEFT_GUI    &ralt_caps                   &lt 2 SPACE
+                                                                            &mkp MB1          &mkp MB2        &mt RCTRL RIGHT_PARENTHESIS
             >;
-
         };
 
         layer_1_fn_scroll {
@@ -130,10 +128,10 @@
         layer_3_space {
             display-name = "Space";
             bindings = <
-&trans  &trans  &trans  &trans     &trans  &trans          &trans  &trans     &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans     &trans  &trans          &trans  &trans     &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans     &trans  &trans          &trans  &trans     &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans     &trans  &trans          &trans  &trans     &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans     &trans  &trans          &trans  &trans     &trans  &trans  &trans         &trans
+&trans  &trans  &trans  &trans     &trans  &trans          &trans  &trans     &trans  &trans  &trans         &trans
+&trans  &kp A   &kp S   &kp D      &kp F   &trans          &trans  &kp J      &kp K   &kp L   &kp SEMICOLON  &trans
+&trans  &trans  &trans  &trans     &trans  &trans          &trans  &trans     &trans  &trans  &trans         &trans
                         &kp SPACE  &trans  &kp CAPSLOCK    &trans  &kp SPACE
                                    &trans  &trans          &trans
             >;
